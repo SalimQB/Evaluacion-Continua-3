@@ -32,7 +32,7 @@ public class ComisionVendedoresController {
             valorComisionVendedores = totalVentasMes * 0.05;
         } else if (totalVentasMes > 5000 && totalVentasMes <= 10000) {
             valorComisionVendedores = totalVentasMes * 0.07;
-        } else {
+        } else{
             valorComisionVendedores = totalVentasMes * 0.10;
         }
 

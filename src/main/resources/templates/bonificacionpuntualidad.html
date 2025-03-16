@@ -1,10 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Calcular Bono por Puntualidad</title></title>
+    <link th:href="@{/css/bootstrap/bootstrap.css}"
+          rel="stylesheet">
 </head>
 <body>
+
+<div class="card">
+    <div class="card-header">
+        CALCULAR BONO POR PUNTUALIDAD
+    </div>
+    <div class="card-body">
+        <form th:action="@{/calcularbonificacionpuntualidad}" method="post"
+              th:object="${bonificacionpuntualidadmodel}">
+            <div class="mb-3">
+                <label for="txtmontopagar" class="form-label">Ingrese el total del monto a pagar:</label>
+                <input type="number" th:field="*{montopagar}" class="form-control" id="txtmontopagar" placeholder="coloque aqui">
+            </div>
+            <div class="mb-3">
+                <label for="txttiempotranscurrido" class="form-label">Ingrese el tiempo que tardo en pagar(en dias):</label>
+                <input type="number" th:field="*{tiempotranscurrido}" class="form-control" id="txttiempotranscurrido" placeholder="coloque aqui">
+            </div>
+            <button type="submit" class="btn btn-primary">CALCULAR</button>
+        </form>
+        <div th:if="${visualizaralerta}" class="alert alert-primary" th:classappend="${estilodiagnostico}"
+             role="alert">
+            <span th:text="${resultado} ?: ''"></span>
+        </div>
+    </div>
+
 
 </body>
 </html>
