@@ -1,10 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Calcular Descuento por antiguedad</title></title>
+    <link th:href="@{/css/bootstrap/bootstrap.css}"
+          rel="stylesheet">
 </head>
 <body>
+
+<div class="card">
+    <div class="card-header">
+        CALCULAR DESCUENTO
+    </div>
+    <div class="card-body">
+        <form th:action="@{/calculardescuentoaplicable}" method="post"
+              th:object="${descuentoantiguedadmodel}">
+            <div class="mb-3">
+                <label for="txtantiguedad" class="form-label">Ingrese los años de cliente:</label>
+                <input type="number" th:field="*{descuento}" class="form-control" id="txtantiguedad" placeholder="Ingrese los años de antigüedad" min="0" required>
+            </div>
+            <button type="submit" class="btn btn-primary">CALCULAR</button>
+        </form>
+        <div th:if="${visualizaralerta}" class="alert alert-primary" th:classappend="${estilodiagnostico}"
+             role="alert">
+            <span th:text="${resultado} ?: ''"></span>
+        </div>
+    </div>
+</div>
+
 
 </body>
 </html>
