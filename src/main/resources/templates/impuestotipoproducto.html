@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Calcular Descuento por categoria</title></title>
+    <link th:href="@{/css/bootstrap/bootstrap.css}"
+          rel="stylesheet">
 </head>
 <body>
+
+<div class="card">
+    <div class="card-header">
+        CALCULAR DESCUENTO
+    </div>
+    <div class="card-body">
+        <form th:action="@{/calcularimpuesto}" method="post"
+              th:object="${impuestomodel}">
+            <div class="mb-3">
+                <label for="txtproducto" class="form-label">Ingrese el producto:</label>
+                <input type="text" th:field="*{producto}" class="form-control" id="txtproducto" placeholder="Ingrese la categoria del producto">
+            </div>
+            <div class="mb-3">
+                <label for="txtprecio" class="form-label">Ingrese el precio:</label>
+                <input type="number" th:field="*{precio}" class="form-control" id="txtprecio" placeholder="Ingrese el precio a pagar">
+            </div>
+            <button type="submit" class="btn btn-primary">CALCULAR</button>
+        </form>
+        <div th:if="${visualizaralerta}" class="alert alert-primary" th:classappend="${estilodiagnostico}"
+             role="alert">
+            <span th:text="${resultado} ?: ''"></span>
+        </div>
+    </div>
+</div>
+
 
 </body>
 </html>

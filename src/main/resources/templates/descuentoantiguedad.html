@@ -14,11 +14,15 @@
         CALCULAR DESCUENTO
     </div>
     <div class="card-body">
-        <form th:action="@{/calculardescuentoaplicable}" method="post"
-              th:object="${descuentoantiguedadmodel}">
+        <form th:action="@{/calculardescuento}" method="post"
+              th:object="${descuentomodel}">
             <div class="mb-3">
-                <label for="txtantiguedad" class="form-label">Ingrese los años de cliente:</label>
-                <input type="number" th:field="*{descuento}" class="form-control" id="txtantiguedad" placeholder="Ingrese los años de antigüedad" min="0" required>
+                <label for="txtannos" class="form-label">Ingrese los años:</label>
+                <input type="number" th:field="*{annos}" class="form-control" id="txtannos" placeholder="Ingrese los años de antigüedad">
+            </div>
+            <div class="mb-3">
+                <label for="txtmonto" class="form-label">Ingrese el monto:</label>
+                <input type="number" th:field="*{monto}" class="form-control" id="txtmonto" placeholder="Ingrese el monto a pagar">
             </div>
             <button type="submit" class="btn btn-primary">CALCULAR</button>
         </form>

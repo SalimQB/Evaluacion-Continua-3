@@ -9,40 +9,44 @@ import pe.edu.idat.Evaluacion_Continua_3.model.DescuentoAntiguedadModel;
 
 @Controller
 public class DescuentoAntiguedadController {
-    @GetMapping("/descuentoaplicable")
-    public String formularioDescuentoAntiguedad(Model model) {
-        model.addAttribute("descuentoantiguedadmodel",
+    @GetMapping("/descuentoantiguedad")
+    public String formulariodescuento(Model model) {
+        model.addAttribute("descuentomodel",
                 new DescuentoAntiguedadModel());
-        model.addAttribute("visualizaralerta",
-                false);
-        return "descuentoaplicable";
-
+        model.addAttribute("visualizaralerta" , false);
+        return "descuentoantiguedad";
     }
 
-    @PostMapping("/calculardescuentoaplicable")
-    public String calculardescuentoaplicable(@ModelAttribute("descuentoantiguedadmodel") DescuentoAntiguedadModel calculardescuentoaplicable,
-                                             Model model) {
-        DescuentoAntiguedadModel descuentoaplicable = null;
-        Double descuentocli = descuentoaplicable.getDescuento();
-        Double desctotal = null;
-        String estiloDiagnostico = "alert-succes";
+    @PostMapping("/calculardescuento")
+    public String calculardescuento(@ModelAttribute("descuentomodel") DescuentoAntiguedadModel calculardescuento, Model model){
 
-        if (descuentocli <= 1) {
-            desctotal = descuentocli * 0.02;
-        } else if (descuentocli > 1 && descuentocli <= 3) {
-            desctotal = descuentocli * 0.05;
-        } else if (descuentocli > 3 && descuentocli <= 5) {
-            desctotal = descuentocli * 0.08;
+        double annos1 = calculardescuento.getAnnos();
+        double monto1 = calculardescuento.getMonto();
+        double total = 0;
+        String diagnostico = "";
+        String estiloDiagnostico = "alert-danger";
+
+        if (annos1 < 1) {
+            total = monto1 - (monto1 * .02);
+            estiloDiagnostico = "alert-danger";
+        } else if (annos1 < 3) {
+            total = monto1 - (monto1 * .05);
+            estiloDiagnostico = "alert-dark";
+        } else if (annos1 < 5 ) {
+            total = monto1 - (monto1 * .08);
+            estiloDiagnostico = "alert-warning";
         } else {
-            desctotal = descuentocli * 0.12;
+            total = monto1 - (monto1 * .12);
+            estiloDiagnostico = "alert-primary";
         }
 
-        model.addAttribute("resultado",
-                "su descuento por antiguedad es: $" + String.format("%.2f",desctotal));
-        model.addAttribute("visualizaralerta",
-                true);
-        model.addAttribute("estilodiagnostico",
-                estiloDiagnostico);
-        return "descuentoaplicable";
+        model.addAttribute("resultado", "su descuento es  " +  total );
+
+        model.addAttribute("visualizaralerta" , true);
+
+        model.addAttribute("estiloDiagnostico", estiloDiagnostico);
+        return "descuentoantiguedad";
     }
+
+
 }
