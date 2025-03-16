@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Calcular Comision de Vendedores</title></title>
+    <link th:href="@{/css/bootstrap/bootstrap.css}"
+          rel="stylesheet">
+</head>
+<body>
+
+<div class="card">
+    <div class="card-header">
+        CALCULAR COMISION DE VENDEDORES
+    </div>
+    <div class="card-body">
+        <form th:action="@{/calcularcomisionvendedores}" method="post"
+              th:object="${comisionvendedoresmodel}">
+            <div class="mb-3">
+                <label for="txttotalventasmes" class="form-label">Ingrese el total de ventas que genero usted, dentro del mes:</label>
+                <input type="number" th:field="*{totalventasmes}" class="form-control" id="txttotalventasmes" placeholder="coloque aqui">
+            </div>
+            <button type="submit" class="btn btn-primary">CALCULAR</button>
+        </form>
+        <div th:if="${visualizaralerta}" class="alert alert-primary" th:classappend="${estilodiagnostico}"
+             role="alert">
+            <span th:text="${resultado} ?: ''"></span>
+        </div>
+    </div>
+
+
+</body>
+</html>
